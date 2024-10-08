@@ -5,12 +5,13 @@ from PyPDF2 import PdfReader
 import io
 from PDF_Text import get_text_from_pdf 
 from Response import get_response
+from text_pdf import text_to_pdf
 
 app = FastAPI()
 
 
 @app.post("/upload-pdf/")
-async def read_pdf( file: UploadFile = File(...)):
+async def read_pdf( filename: Annotated[str, Form()], file: UploadFile = File(...)):
     try:
         # Read the PDF file content as bytes
         contents = await file.read()
@@ -25,9 +26,12 @@ async def read_pdf( file: UploadFile = File(...)):
 
         answer = get_response(System , prompted)
         required_text = answer.replace('*', '')
+        required_text = required_text.replace("*", "")
+        required_text = required_text.replace("#", "")
 
-        print(required_text)
-        return {"MCQs": required_text}
+        result = text_to_pdf(required_text, filename)
+
+        return {"Output: ": result}
 
     except Exception as e:
         return {"Error Internet Connection": e}
