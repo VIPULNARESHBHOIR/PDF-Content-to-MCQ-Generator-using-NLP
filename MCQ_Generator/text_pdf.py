@@ -2,11 +2,12 @@ import textwrap
 from fpdf import FPDF
 
 def text_to_pdf(text, filename):
+    print(text)
     filename = filename + ".pdf"
     try:
         a4_width_mm = 210
         pt_to_mm = 0.35
-        fontsize_pt = 12
+        fontsize_pt = 8
         fontsize_mm = fontsize_pt * pt_to_mm
         margin_bottom_mm = 10
         character_width_mm = 7 * pt_to_mm

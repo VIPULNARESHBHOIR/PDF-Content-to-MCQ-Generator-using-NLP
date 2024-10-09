@@ -28,8 +28,9 @@ async def read_pdf( filename: Annotated[str, Form()], file: UploadFile = File(..
         required_text = answer.replace('*', '')
         required_text = required_text.replace("*", "")
         required_text = required_text.replace("#", "")
-
+    
         result = text_to_pdf(required_text, filename)
+        print(result)
 
         return {"Output: ": result}
 

@@ -28,5 +28,5 @@ def get_response(system , prompt = None):
 
     response = chat_session.send_message(prompt)
     model_response = response.text
-    print(model_response)
+    
     return model_response
